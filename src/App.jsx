@@ -40,6 +40,12 @@ function App() {
   const debouncedFetchMovies = useCallback(debounce(getMovies, 1000), [search]);
 
   useEffect(() => {
+    // Fetch default popular movies on initial render
+    getMovies();
+  }, []); // Empty dependency array means this runs only on mount
+
+  useEffect(() => {
+    // Fetch movies whenever the search term changes
     debouncedFetchMovies();
   }, [search, debouncedFetchMovies]);
 
@@ -59,7 +65,7 @@ function App() {
           {movies.length > 0 ? (
             <DisplayBox movies={movies} />
           ) : (
-            <p className="text-center text-muted">No movies found. Try searching for something!</p>
+            <p className="text-center text-muted">Loading movies...</p> // Loading state instead of "No movies found"
           )}
         </div>
       </div>
