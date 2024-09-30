@@ -37,7 +37,11 @@ function App() {
     }
   };
 
-  const debouncedFetchMovies = useCallback(debounce(getMovies, 1000), [search]);
+ // Create a debounced version of getMovies that delays execution by 1000 ms 
+// to limit API requests while the user types. The function is recreated 
+// only when the 'search' dependency changes.
+const debouncedFetchMovies = useCallback(debounce(getMovies, 1000), [search]);
+
 
   useEffect(() => {
     // Fetch default popular movies on initial render
